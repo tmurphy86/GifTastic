@@ -1,24 +1,23 @@
 $(function(){ 
     var topics = [];
     var topic = '';
+    var person;
 
-    $('#input').html( class="form-control" id="start-input" type="text">
+    // $('#drop').html('<div class="form-control" id="start-input" type="text">');
 
     $('#submit').on('click', function() {
       topic = $('#input').val().trim();
-      topics.append(topics);
+      topics.push(topic);
+      search();
+      topicAdd();
       //run function to do 
 
     });
     
-
-    // Event listener for all button elements
-    $("button").on("click", function() {
-      // In this case, the "this" keyword refers to the button that was clicked
-      var person = $(this).attr("data-person");
+function search(){
 
       // Constructing a URL to search Giphy for the name of the person who said the quote
-      var queryURL = "http://api.giphy.com/v1/gifs/search?q=" +
+      var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
         person + "&api_key=dc6zaTOxFJmzC&limit=10";
 
       // Performing our AJAX GET request
@@ -32,10 +31,8 @@ $(function(){
           var results = response.data;
 
           // Looping over every result item
-          for (var i = 0; i < results.length; i++) {
+          for (var i = 0; i < 10; i++) {
 
-            // Only taking action if the photo has an appropriate rating
-            if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
               // Creating a div with the class "item"
               var gifDiv = $("<div class='item'>");
 
@@ -50,7 +47,7 @@ $(function(){
 
               // Giving the image tag an src attribute of a proprty pulled off the
               // result item
-              personImage.attr("src", results[i].images.fixed_height.url);
+              personImage.attr("src", results[i].images.fixed_height.url, "data-status", "running");
 
               // Appending the paragraph and personImage we created to the "gifDiv" div we created
               gifDiv.append(p);
@@ -58,8 +55,23 @@ $(function(){
 
               // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
               $("#gifs-appear-here").prepend(gifDiv);
-            }
           }
         });
-    });
-    });
+
+}
+
+function topicAdd() {
+  for (var i = 0; i < topics.length; i++) {
+     $('#topics').append($('<button class='button btn btn-primary' >'));
+
+      // In this case, the "this" keyword refers to the button that was clicked
+      person = $(this).attr("data-person");
+
+
+  }
+
+};
+
+$(document).on('click', '.button', search);
+
+});
