@@ -52,17 +52,19 @@ $(function(){
           for (var i = 0; i < 10; i++) {
 
               // Creating a div with the class "item"
-              var gifDiv = $("<div class='item'>");
+              var gifDiv = $("<div class='item'>", {class:"center-block col-md-1 col-sm-6"});
 
               // Creating a paragraph tag with the result item's rating
-              var p = $("<p>").text("Rating: " + results[i].rating);
+              var p = $("<div>", {class:"col-md-1 col-sm-6 text-center"}).text("Rating: " + results[i].rating);
 
               // Creating an image tag
               var personImage = $("<img>", {src: results[i].images.fixed_height_still.url, class:"gifPic", "data-animate": results[i].images.fixed_height.url, "data-still": results[i].images.fixed_height_still.url, "data-state": "still"});
 
               // Appending the paragraph and personImage we created to the "gifDiv" div we created
+              gifDiv.append($('<p>'));
               gifDiv.append(p);
               gifDiv.append(personImage);
+
 
               // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
               $("#gifs-appear-here").prepend(gifDiv);
@@ -92,7 +94,7 @@ $(function(){
     clearGif();
 
     for (var i = 0; i < topics.length; i++) {
-        $('#topics').append($('<button>', {class:'button btn btn-primary giftopic', "data-person": topics[i], text: topics[i]}));
+        $('#topics').append($('<button>', {class:'button btn btn-primary giftopic ', "data-person": topics[i], text: topics[i]}));
     }
   };
 

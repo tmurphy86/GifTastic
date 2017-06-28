@@ -1,0 +1,12 @@
+body {
+	margin-left: 10em;
+	background-color: lightyellow; 
+}
+
+.jumbotron {
+	margin-left: -10em;
+}
+#topics {
+	margin-left: -10em;
+}
+
